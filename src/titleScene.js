@@ -27,13 +27,11 @@ export default class TitleScene extends Phaser.Scene {
     this.cameras.main.fadeIn(100);
     const bg = this.add.image(512, 288, 'bg');
     bg.setDisplaySize(1024, 576);
-    this.add.image(512, 192, 'sprites', 'title');
-    this.add.image(112, 464, 'sprites', 'newhorizonstitle');
-    this.add.image(928, 432, 'sprites', 'nowwanus');
-    this.add.text(1016, 568, 'version 0.8.1 (2020-04-26c)', {
-      fontSize: '16px',
+    this.add.text(512, 96, 'Invisible\nIssues', {
+      fontSize: '56px',
       fontFamily: 'font',
-    }).setOrigin(1);
+      align: 'center',
+    }).setOrigin(0.5);
     this.scene.run('InfoScene');
     this.scene.run('MusicScene');
     const play = new Button(this, 512, 528, 'sprites', 'playon');
@@ -44,7 +42,7 @@ export default class TitleScene extends Phaser.Scene {
     this.input.keyboard.on('keydown', (event) => {
       event.preventDefault();
       if (event.key === '0') {
-        this.add.text(8, 568, 'invincibility & all levels', {
+        this.add.text(8, 568, 'gode mode on', {
           fontSize: '16px',
           fontFamily: 'font',
         }).setOrigin(0, 1);

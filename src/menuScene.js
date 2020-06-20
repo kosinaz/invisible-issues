@@ -1,5 +1,4 @@
 import Button from './button.js';
-import AsteroidMap from './asteroidMap.js';
 import Profile from './profile.js';
 
 /**

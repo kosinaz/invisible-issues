@@ -60,11 +60,11 @@ export default class MusicScene extends Phaser.Scene {
       musicbar3.visible = this.volume > 0.6;
     });
     const musicborder = this.add.image(42, 0, 'sprites', 'audioborder');
-    const musicbar1 = this.add.image(31, 0, 'sprites', 'audiobar');
+    const musicbar1 = this.add.image(34, 0, 'sprites', 'audiobar');
     musicbar1.visible = this.volume > 0;
-    const musicbar2 = this.add.image(46, 0, 'sprites', 'audiobar');
+    const musicbar2 = this.add.image(49, 0, 'sprites', 'audiobar');
     musicbar2.visible = this.volume > 0.3;
-    const musicbar3 = this.add.image(61, 0, 'sprites', 'audiobar');
+    const musicbar3 = this.add.image(64, 0, 'sprites', 'audiobar');
     musicbar3.visible = this.volume > 0.6;
     this.add.container(936, 40, [
       musicborder,

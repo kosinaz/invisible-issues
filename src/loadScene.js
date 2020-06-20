@@ -60,6 +60,7 @@ export default class LoadScene extends Phaser.Scene {
     this.load.json('levels', 'data/levels.json');
     this.load.audio('menu', 'audio/PM_AR_125_Fm_E.mp3');
     this.load.audio('level', 'audio/173_Robotics_Lab.mp3');
+    this.load.audio('win', 'audio/173_Robotics_Lab.mp3');
   }
 
   /**
