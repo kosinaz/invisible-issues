@@ -1,0 +1,93 @@
+[
+  {
+    "asteroidleft": 2,
+    "target": 10
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 1,
+    "target": 10
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 2,
+    "target": 25
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 3,
+    "target": 35
+  },
+  {
+    "asteroiddown": 2,
+    "asteroidleft": 2,
+    "target": 45
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 2,
+    "asteroidup": 1,
+    "target": 30
+  },
+  {
+    "asteroiddown": 2,
+    "asteroidleft": 2,
+    "asteroidup": 1,
+    "target": 30
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 3,
+    "asteroidup": 2,
+    "target": 35
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 1,
+    "asteroidright": 1,
+    "asteroidup": 1,
+    "target": 20
+  },
+  {
+    "asteroiddown": 2,
+    "asteroidleft": 2,
+    "asteroidright": 1,
+    "asteroidup": 1,
+    "target": 25
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 3,
+    "asteroidright": 1,
+    "asteroidup": 2,
+    "target": 40
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 3,
+    "asteroidright": 3,
+    "asteroidup": 1,
+    "target": 65
+  },
+  {
+    "asteroiddown": 3,
+    "asteroidleft": 3,
+    "asteroidright": 1,
+    "asteroidup": 1,
+    "target": 70
+  },
+  {
+    "asteroiddown": 1,
+    "asteroidleft": 3,
+    "asteroidright": 3,
+    "asteroidup": 3,
+    "target": 75
+  },
+  {
+    "asteroiddown": 2,
+    "asteroidleft": 2,
+    "asteroidright": 2,
+    "asteroidup": 2,
+    "target": 55
+  }
+]
