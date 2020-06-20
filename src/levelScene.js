@@ -17,16 +17,6 @@ export default class LevelScene extends Phaser.Scene {
   }
 
   /**
-   *
-   *
-   * @memberof LevelScene
-   */
-  preload() {
-    this.load.tilemapTiledJSON('map', 'data/map.json');
-    this.load.image('tileset', 'image/tileset.png');
-  }
-
-  /**
    * Creates the content of the LevelScene.
    *
    * @param {*} data
