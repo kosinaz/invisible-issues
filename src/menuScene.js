@@ -28,10 +28,11 @@ export default class MenuScene extends Phaser.Scene {
     bg.setDisplaySize(1024, 576);
     const levels = this.cache.json.get('levels');
     this.scene.get('MusicScene').play(0);
-    this.scene.run('SelectScene', data);
-    this.scene.run('UpgradeScene');
     this.scene.run('InfoScene');
-    const windowbg = this.add.image(0, 0, 'sprites', 'window');
+    const windowbg = this.add.graphics();
+    windowbg.fillStyle(0x000000);
+    windowbg.fillRect(256, 0, 512, 576);
+    windowbg.setAlpha(0.75);
     const title = this.add.text(0, -184, 'Mission ' + (data.level + 1), {
       fontSize: '48px',
       fontFamily: 'font',

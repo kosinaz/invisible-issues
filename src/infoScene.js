@@ -45,14 +45,22 @@ export default class InfoScene extends Phaser.Scene {
         });
       }
     });
-    const bg = this.add.image(0, 0, 'sprites', 'panel').setAlpha(0.99);
-    const div1 = this.add.text(-496, -216,
-        ` `, {
-          fontSize: '16px',
+    const bg = this.add.graphics();
+    bg.fillStyle(0x000000);
+    bg.fillRect(-256, -128, 512, 256);
+    bg.setAlpha(0.75);
+    const div1 = this.add.text(0, 0,
+        `Art by Zoltan Kosina
+based on PK01 by Philip Klevestav
+Fonts by Typodermic Fonts
+Audio by Zapsplat www.zapsplat.com
+and Tabletop Audio tabletopaudio.com`, {
+          fontSize: '14px',
           fontFamily: 'font2',
           color: 'lightgray',
-          lineSpacing: 6,
-        }).setOrigin(0);
+          lineSpacing: 32,
+          align: 'center',
+        }).setOrigin(0.5);
     const window = this.add.container(512, 904, [bg, div1]);
     window.visible = false;
   }
