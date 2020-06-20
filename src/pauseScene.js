@@ -183,14 +183,14 @@ for science and stars`, {
       this.maskgraphics.destroy();
     }
     this.maskgraphics = this.make.graphics();
-    this.maskgraphics.fillCircle(newhorizons.x + 24, newhorizons.y + 24, 50);
+    this.maskgraphics.fillCircle(512, 288, 50);
     this.maskgraphics.fillCircle(0, 64, 200);
     this.maskgraphics.fillCircle(70, 506, 70);
     this.maskgraphics.fillCircle(512, -85, 200);
     this.bg.mask = this.maskgraphics.createGeometryMask();
     this.bg.mask.setInvertAlpha();
-    this.newhorizonshint.x = newhorizons.x - 58;
-    this.newhorizonshint.y = newhorizons.y - 98;
+    this.newhorizonshint.x = 512;
+    this.newhorizonshint.y = 288;
     this.scene.pause('LevelScene');
     this.opened = true;
     this.window.visible = true;
