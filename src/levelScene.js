@@ -34,18 +34,8 @@ export default class LevelScene extends Phaser.Scene {
     const tileset = this.map.addTilesetImage('tileset', 'tileset');
     const terrain = this.map.createStaticLayer('terrain', tileset, 0, 0);
     const props = this.map.createStaticLayer('props', tileset, 0, 0);
-    //const danger = this.map.createStaticLayer('danger', tileset, 0, 0);
-    // const dangers = map.createFromTiles(45, 1, {
-    //   key: '',
-    // }, this, this.cameras.main, 'danger');
     terrain.setCollisionBetween(6, 18);
     terrain.setCollisionBetween(21, 32);
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // terrain.renderDebug(debugGraphics, {
-    //   tileColor: null, // Color of non-colliding tiles
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
     terrain.forEachTile((tile) => {
       if (tile.index === 40) {
         this.agent = this.physics.add.image(
@@ -101,6 +91,11 @@ export default class LevelScene extends Phaser.Scene {
     //     this.scene.stop('LevelScene');
     //   }
     // });
+    this.steps = this.sound.add('steps', {
+      loop: true,
+      volume: 0,
+    });
+    this.steps.play();
   }
 
   /**
@@ -142,6 +137,46 @@ export default class LevelScene extends Phaser.Scene {
       this.agent.setVelocityX(this.agent.speed);
       this.agent.angle = -90;
     }
+    if (this.agent.body.blocked.none && (
+      this.agent.body.velocity.x || this.agent.body.velocity.y)
+    ) {
+      this.steps.volume = 0.25;
+    } else {
+      this.steps.volume = 0;
+    }
     this.agent.body.velocity.normalize().scale(this.agent.speed);
+  }
+
+  /**
+   *
+   *
+   * @memberof LevelScene
+   */
+  turnInvisible() {
+    if (!this.invisible) {
+      this.invisible = true;
+      this.cameras.main.fadeOut(1000);
+      this.tweens.add({
+        targets: this.agent,
+        alpha: 0,
+        ease: 'Quad',
+        duration: 750,
+      });
+      this.time.addEvent({
+        delay: 4000, callback: () => {
+          this.cameras.main.fadeIn(1000);
+          this.tweens.add({
+            targets: this.agent,
+            delay: 250,
+            alpha: 1,
+            ease: 'Quad',
+            duration: 750,
+            onComplete: () => {
+              this.invisible = false;
+            },
+          });
+        },
+      });
+    }
   }
 }

@@ -52,13 +52,15 @@ export default class InfoScene extends Phaser.Scene {
     const div1 = this.add.text(0, 0,
         `Art by Zoltan Kosina
 based on PK01 by Philip Klevestav
+and on top-down-sci-fi-shooter-characters 
+by tatermand
 Fonts by Typodermic Fonts
 Audio by Zapsplat www.zapsplat.com
 and Tabletop Audio tabletopaudio.com`, {
           fontSize: '14px',
           fontFamily: 'font2',
           color: 'lightgray',
-          lineSpacing: 32,
+          lineSpacing: 14,
           align: 'center',
         }).setOrigin(0.5);
     const window = this.add.container(512, 904, [bg, div1]);
