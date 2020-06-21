@@ -296,6 +296,17 @@ export default class LevelScene extends Phaser.Scene {
       this.keys.D.isDown = false;
       this.keys.RIGHT.isDown = false;
     }
+    const exittile = this.map.getTileAtWorldXY(
+        this.agent.x,
+        this.agent.y,
+        false,
+        this.cameras.main,
+        'terrain',
+    );
+    if (!this.invisible && exittile.index === 40 &&
+      Profile.money >= 150000000) {
+      this.scene.start('WinScene');
+    }
     if (this.keys.W.isDown) {
       this.agent.setVelocityY(-this.agent.speed);
       this.agent.angle = 180;

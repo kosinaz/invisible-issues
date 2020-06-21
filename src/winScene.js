@@ -1,3 +1,6 @@
+import Button from './button.js';
+import Profile from './profile.js';
+
 /**
  * Represent the victory cutscene.
  *
@@ -21,74 +24,38 @@ export default class WinScene extends Phaser.Scene {
    * @memberof WinScene
    */
   create(data) {
-    this.cameras.main.fadeIn(3000);
+    this.cameras.main.fadeIn(100);
     const bg = this.add.image(512, 288, 'bg');
-    bg.setDepth(-3);
-    this.scene.get('MusicScene').play(2);
-    this.add.image(490, 262, 'sprites', 'newhorizons');
-    const nowwanus = this.physics.add.image(1200, 262, 'sprites', 'nowwanus');
-    nowwanus.setVelocityX(-25);
-    this.time.addEvent({
-      delay: 15000,
-      callback: () => {
-        this.cameras.main.fadeOut(3000, 255, 255, 255);
-      },
+    bg.setDisplaySize(1024, 576);
+    this.add.text(512, 196, 'Mission\nAccomplished!', {
+      fontSize: '56px',
+      fontFamily: 'font',
+      align: 'center',
+    }).setOrigin(0.5);
+    this.scene.run('InfoScene');
+    this.scene.run('MusicScene');
+    const play = new Button(this, 512, 528, 'sprites', 'playon');
+    play.once('click', () => {
+      play.disableInteractive();
+      this.cameras.main.fadeOut(300);
     });
-    const offscreen = new Phaser.Geom.Rectangle(1024, 0, 1, 576);
-    const onscreen = new Phaser.Geom.Rectangle(0, 0, 1025, 576);
-    const dustGraphics = this.make.graphics();
-    dustGraphics.fillStyle(0xffffff);
-    dustGraphics.fillPoint(0, 0, 4);
-    dustGraphics.generateTexture('dust', 4, 4);
-    this.add.particles('dust', [{
-      emitZone: {
-        source: offscreen,
-      },
-      deathZone: {
-        source: onscreen,
-        type: 'onLeave',
-      },
-      frequency: 250,
-      speedX: {
-        min: -20,
-        max: -100,
-      },
-      lifespan: 15000,
-    }]);
-    this.add.text(16, 16, `In 2026 NASA\'s New Horizons probe
-made the most distant flyby in space history`, {
-      fontSize: '20px',
-      fontFamily: 'font2',
-      lineSpacing: 8,
-    }).setOrigin(0);
-    const mid = this.add.text(16, 116, `After a dramatic 20-year long journey
-New Horizons reached it's marvelous destination: 
-Nowwanus`, {
-      fontSize: '20px',
-      fontFamily: 'font2',
-      lineSpacing: 8,
-    }).setOrigin(0).setAlpha(0);
-    this.tweens.add({
-      delay: 5000,
-      targets: mid,
-      alpha: 1,
-      duration: 1000,
+    this.input.keyboard.on('keydown', (event) => {
+      event.preventDefault();
+      if (event.key === '0') {
+        this.add.text(8, 568, 'gode mode on', {
+          fontSize: '16px',
+          fontFamily: 'font',
+        }).setOrigin(0, 1);
+        Profile.progress = 15;
+        Profile.invincible = true;
+      } else {
+        this.cameras.main.fadeOut(300);
+      }
     });
-    const bottom = this.add.text(16, 468, `But this is still not the end.
-Beyond the outer edge of the Kuiper Belt,
-the next destination awaits...`, {
-      fontSize: '20px',
-      fontFamily: 'font2',
-      lineSpacing: 8,
-    }).setOrigin(0).setAlpha(0);
-    this.tweens.add({
-      delay: 10000,
-      targets: bottom,
-      alpha: 1,
-      duration: 1000,
-    });
-    this.cameras.main.on('camerafadeoutcomplete', () => {
-      this.scene.start('MenuScene', data);
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.scene.start('MenuScene', {
+        level: 0,
+      });
     });
   }
 }
