@@ -48,7 +48,7 @@ export default class InfoScene extends Phaser.Scene {
     const bg = this.add.graphics();
     bg.fillStyle(0x000000);
     bg.fillRect(-256, -128, 512, 256);
-    bg.setAlpha(0.75);
+    bg.setAlpha(0.95);
     const div1 = this.add.text(0, 0,
         `Art by Zoltan Kosina
 based on PK01 by Philip Klevestav

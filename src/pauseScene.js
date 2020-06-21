@@ -1,5 +1,4 @@
 import Button from './button.js';
-import Profile from './profile.js';
 
 /**
  * Represent the pause modal of the level scene.
@@ -29,6 +28,41 @@ export default class PauseScene extends Phaser.Scene {
     this.bg.fillStyle(0x000000);
     this.bg.fillRect(0, 0, 1024, 576);
     this.bg.setAlpha(0.75);
+    this.wastedtext = this.add.text(512, 128, `Wasted`, {
+      fontSize: '80px',
+      fontFamily: 'font',
+      align: 'center',
+      lineSpacing: 8,
+    });
+    this.wastedtip = this.add.text(512, 380, `Press F to resume 
+from the last safe position!`, {
+      fontSize: '24px',
+      fontFamily: 'font2',
+      align: 'center',
+      lineSpacing: 8,
+    });
+    this.wastedtext.setOrigin(0.5, 0);
+    this.wastedtip.setOrigin(0.5, 0);
+    this.wastedtext.visible = false;
+    this.wastedtip.visible = false;
+    if (data.wasted) {
+      this.wastedtext.visible = true;
+      this.wastedtip.visible = true;
+    }
+    this.help = this.add.text(512, 128,
+        `Use WASD/Arrows to move and Space/Enter to hide!
+Collect the money then return to the start location to win!`
+        , {
+          fontSize: '24px',
+          fontFamily: 'font2',
+          align: 'center',
+          lineSpacing: 16,
+        });
+    this.help.setOrigin(0.5, 0);
+    this.help.visible = false;
+    if (data.first) {
+      this.help.visible = true;
+    }
 //     const timeline = this.add.line(0, 0, -50, -50, 0, 0, 0xffffff);
 //     timeline.setOrigin(0);
 //     const timetext = this.add.text(0, 4, `Finish the mission
@@ -113,6 +147,10 @@ export default class PauseScene extends Phaser.Scene {
       event.preventDefault();
       this.close();
     });
+    this.input.keyboard.on('keydown-F', (event) => {
+      event.preventDefault();
+      this.close();
+    });
     const close = new Button(this, -96, 0, 'sprites', 'close');
     close.on('click', () => {
       this.cameras.main.fadeOut(300);
@@ -142,7 +180,9 @@ export default class PauseScene extends Phaser.Scene {
     const buttons = this.add.container(512, 528, [play, close]);
     this.window = this.add.container(0, 576, [
       this.bg,
-      // this.newhorizonshint,
+      this.wastedtext,
+      this.wastedtip,
+      this.help,
       // photoshint,
       // this.timehint,
       buttons,

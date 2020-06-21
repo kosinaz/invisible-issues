@@ -31,12 +31,25 @@ export default class MenuScene extends Phaser.Scene {
     const windowbg = this.add.graphics();
     windowbg.fillStyle(0x000000);
     windowbg.fillRect(-256, -128, 512, 288);
-    windowbg.setAlpha(0.75);
-    const title = this.add.text(0, -184, 'Issue ' + (data.level + 1), {
+    windowbg.setAlpha(0.95);
+    const title = this.add.text(0, -184, 'Mission', {
       fontSize: '48px',
       fontFamily: 'font',
     });
     title.setOrigin(0.5);
+    const content = this.add.text(0, 0, `Use your super power to sneak into
+the hidden researh facility of the Asclepius Inc.
+hack into their computers and steal every 
+valuable information!
+
+Contractual Amount: $150.000.000
+Maximum Bonus: $250.000.000`, {
+      fontSize: '16px',
+      fontFamily: 'font2',
+      align: 'center',
+      lineSpacing: 14,
+    });
+    content.setOrigin(0.5);
     const play = new Button(this, 0, 0, 'sprites', 'playon');
     play.once('click', () => {
       this.cameras.main.fadeOut(300);
@@ -53,12 +66,13 @@ export default class MenuScene extends Phaser.Scene {
       Profile.timeleft = Profile.time * 60000;
       this.scene.start('LevelScene', {
         level: data.level,
+        first: true,
       });
       this.scene.stop('InfoScene');
       this.scene.stop();
     });
     const buttons = this.add.container(0, 224, [play]);
-    const windowcontent = [windowbg, title, buttons];
+    const windowcontent = [windowbg, title, content, buttons];
     this.window = this.add.container(512, 304, windowcontent);
     if (!data.from) {
       this.cameras.main.fadeIn(100);

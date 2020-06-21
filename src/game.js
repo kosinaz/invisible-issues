@@ -8,6 +8,7 @@ import MusicScene from './musicScene.js';
 import SelectScene from './selectScene.js';
 import UpgradeScene from './upgradeScene.js';
 import InfoScene from './infoScene.js';
+import MoneyScene from './moneyScene.js';
 
 new Phaser.Game({
   type: Phaser.AUTO,
@@ -35,5 +36,6 @@ new Phaser.Game({
     SelectScene,
     UpgradeScene,
     InfoScene,
+    MoneyScene,
   ],
 });

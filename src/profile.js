@@ -15,3 +15,4 @@ Profile.range = 1;
 Profile.photo = 1;
 Profile.time = 1;
 Profile.timeleft = 1;
+Profile.money = 0;
