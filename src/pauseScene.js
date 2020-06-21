@@ -34,7 +34,8 @@ export default class PauseScene extends Phaser.Scene {
       align: 'center',
       lineSpacing: 8,
     });
-    this.wastedtip = this.add.text(512, 380, `Press F to resume 
+    this.wastedtip = this.add.text(512, 380, `You have been discovered!
+Press F to resume 
 from the last safe position!`, {
       fontSize: '24px',
       fontFamily: 'font2',
@@ -50,7 +51,8 @@ from the last safe position!`, {
       this.wastedtip.visible = true;
     }
     this.help = this.add.text(512, 128,
-        `Use WASD/Arrows to move and Space/Enter to hide!
+        `Use WASD to move and Space/Enter to hide!
+Use arrows to move the camera and explore the map!
 Collect the money then return to the start location to win!`
         , {
           fontSize: '24px',

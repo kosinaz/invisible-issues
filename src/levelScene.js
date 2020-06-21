@@ -240,17 +240,34 @@ export default class LevelScene extends Phaser.Scene {
         }
       },
     });
+    const cursors = this.input.keyboard.createCursorKeys();
+
+    this.camcontrols = new Phaser.Cameras.Controls.FixedKeyControl({
+      camera: this.cameras.main,
+      left: cursors.left,
+      right: cursors.right,
+      up: cursors.up,
+      down: cursors.down,
+      speed: 0.5,
+    });
+
+    this.cameras.main.setBounds(0, 0, terrain.x + terrain.width, terrain.y + terrain.height);
   }
 
   /**
    *
    *
+   * @param {*} t
+   * @param {*} d
+   * @returns
    * @memberof LevelScene
    */
-  update() {
+  update(t, d) {
+    this.camcontrols.update(d);
     if (!this.agent || !this.agent.body) {
       return;
     }
+    this.cameras.main.stopFollow();
     if (this.wasted) {
       this.agent.x = this.safex;
       this.agent.y = this.safey;
@@ -279,21 +296,25 @@ export default class LevelScene extends Phaser.Scene {
       this.keys.D.isDown = false;
       this.keys.RIGHT.isDown = false;
     }
-    if (this.keys.W.isDown || this.keys.UP.isDown) {
+    if (this.keys.W.isDown) {
       this.agent.setVelocityY(-this.agent.speed);
       this.agent.angle = 180;
+      this.cameras.main.startFollow(this.agent);
     }
-    if (this.keys.A.isDown || this.keys.LEFT.isDown) {
+    if (this.keys.A.isDown) {
       this.agent.setVelocityX(-this.agent.speed);
       this.agent.angle = 90;
+      this.cameras.main.startFollow(this.agent);
     }
-    if (this.keys.S.isDown || this.keys.DOWN.isDown) {
+    if (this.keys.S.isDown) {
       this.agent.setVelocityY(this.agent.speed);
       this.agent.angle = 0;
+      this.cameras.main.startFollow(this.agent);
     }
-    if (this.keys.D.isDown || this.keys.RIGHT.isDown) {
+    if (this.keys.D.isDown) {
       this.agent.setVelocityX(this.agent.speed);
       this.agent.angle = -90;
+      this.cameras.main.startFollow(this.agent);
     }
     if (this.agent.body.blocked.none && (
       this.agent.body.velocity.x || this.agent.body.velocity.y)
