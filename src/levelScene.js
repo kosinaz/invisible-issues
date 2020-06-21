@@ -28,13 +28,16 @@ export default class LevelScene extends Phaser.Scene {
     this.scene.get('MusicScene').play(1);
     this.scene.run('PauseScene', data);
     this.scene.pause();
-    const map = this.make.tilemap({
+    this.map = this.make.tilemap({
       key: 'map',
     });
-    const tileset = map.addTilesetImage('tileset', 'tileset');
-    const terrain = map.createStaticLayer('terrain', tileset, 0, 0);
-    const props = map.createStaticLayer('props', tileset, 0, 0);
-    // const danger = map.createStaticLayer('danger', tileset, 0, 0);
+    const tileset = this.map.addTilesetImage('tileset', 'tileset');
+    const terrain = this.map.createStaticLayer('terrain', tileset, 0, 0);
+    const props = this.map.createStaticLayer('props', tileset, 0, 0);
+    //const danger = this.map.createStaticLayer('danger', tileset, 0, 0);
+    // const dangers = map.createFromTiles(45, 1, {
+    //   key: '',
+    // }, this, this.cameras.main, 'danger');
     terrain.setCollisionBetween(6, 18);
     terrain.setCollisionBetween(21, 32);
     // const debugGraphics = this.add.graphics().setAlpha(0.75);
@@ -43,21 +46,31 @@ export default class LevelScene extends Phaser.Scene {
     //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
     // });
-    this.agent = this.physics.add.image(512, 256, 'sprites', 'guard');
-    // this.agent.setOrigin(0.5);
+    terrain.forEachTile((tile) => {
+      if (tile.index === 40) {
+        this.agent = this.physics.add.image(
+            tile.getCenterX(),
+            tile.getCenterY(),
+            'sprites',
+            'agent',
+        );
+      }
+    });
     this.agent.body.setCircle(24, 24, 24);
     this.agent.speed = 200;
+    this.guards = this.physics.add.group();
+    props.forEachTile((tile) => {
+      if (tile.index > 35 && tile.index < 40) {
+        this.guards.create(
+            tile.getCenterX(),
+            tile.getCenterY(),
+            'sprites',
+            'guard',
+        );
+      }
+    });
     this.physics.add.collider(this.agent, terrain);
     this.cameras.main.startFollow(this.agent);
-    // this.focus = this.add.graphics({
-    //   x: 512,
-    //   y: 288,
-    // });
-    // this.dangers = this.physics.add.group();
-    // this.physics.add.overlap(this.agent, this.dangers, () => {
-    //   if (!Profile.invincible) {
-    //   }
-    // });
     this.keys =
       this.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ENTER');
     this.input.keyboard.on('keydown', (event) => {
@@ -100,6 +113,19 @@ export default class LevelScene extends Phaser.Scene {
       return;
     }
     this.agent.setVelocity(0);
+    if (this.failed) {
+      return;
+    }
+    if (this.map.getTileAtWorldXY(
+        this.agent.x,
+        this.agent.y,
+        false,
+        this.cameras.main,
+        'danger',
+    )) {
+      //this.failed = true;
+      console.log('ja');
+    }
     if (this.keys.W.isDown || this.keys.UP.isDown) {
       this.agent.setVelocityY(-this.agent.speed);
       this.agent.angle = 180;

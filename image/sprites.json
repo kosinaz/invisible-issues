@@ -1,8 +1,16 @@
 {"frames": [
 
 {
+	"filename": "agent",
+	"frame": {"x":0,"y":0,"w":96,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
+	"sourceSize": {"w":96,"h":96}
+},
+{
 	"filename": "audiobar",
-	"frame": {"x":0,"y":0,"w":15,"h":32},
+	"frame": {"x":97,"y":0,"w":15,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":15,"h":32},
@@ -10,7 +18,7 @@
 },
 {
 	"filename": "audioborder",
-	"frame": {"x":0,"y":49,"w":60,"h":40},
+	"frame": {"x":0,"y":97,"w":60,"h":40},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":60,"h":40},
@@ -18,7 +26,7 @@
 },
 {
 	"filename": "close",
-	"frame": {"x":16,"y":0,"w":48,"h":48},
+	"frame": {"x":61,"y":97,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -26,7 +34,7 @@
 },
 {
 	"filename": "guard",
-	"frame": {"x":126,"y":49,"w":96,"h":96},
+	"frame": {"x":0,"y":146,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -34,7 +42,7 @@
 },
 {
 	"filename": "info",
-	"frame": {"x":65,"y":0,"w":48,"h":48},
+	"frame": {"x":0,"y":243,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -42,7 +50,7 @@
 },
 {
 	"filename": "music",
-	"frame": {"x":114,"y":0,"w":48,"h":48},
+	"frame": {"x":49,"y":243,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -50,7 +58,7 @@
 },
 {
 	"filename": "pause",
-	"frame": {"x":163,"y":0,"w":48,"h":48},
+	"frame": {"x":0,"y":292,"w":48,"h":48},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
@@ -58,7 +66,7 @@
 },
 {
 	"filename": "playon",
-	"frame": {"x":61,"y":49,"w":64,"h":64},
+	"frame": {"x":49,"y":292,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -69,8 +77,8 @@
 	"version": "1.0",
 	"image": "sprites.png",
 	"format": "RGBA8888",
-	"size": {"w":222,"h":145},
+	"size": {"w":113,"h":356},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:23ddaa5f2dc84186206bf786c23ad99b:236dae6a4d57978e22b4c2a24b099322:1eabdf11f75e3a4fe3147baf7b5be24b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0500c475f3eb434f1f2129bbfa4d1cc2:67b644680d6134c2023f0f34efe589d9:1eabdf11f75e3a4fe3147baf7b5be24b$"
 }
 }
