@@ -27,11 +27,14 @@ export default class WinScene extends Phaser.Scene {
     this.cameras.main.fadeIn(100);
     const bg = this.add.image(512, 288, 'bg');
     bg.setDisplaySize(1024, 576);
-    this.add.text(512, 196, 'Mission\nAccomplished!', {
+    const text = this.add.text(512, 160, 'Mission\nAccomplished!', {
       fontSize: '56px',
       fontFamily: 'font',
       align: 'center',
-    }).setOrigin(0.5);
+    }).setOrigin(0.5, 0);
+    if (Profile.money === 400000000) {
+      text.text += '\n\nFLAWLESS\nPERFORMANCE!';
+    }
     this.scene.run('InfoScene');
     this.scene.run('MusicScene');
     const play = new Button(this, 512, 528, 'sprites', 'playon');
