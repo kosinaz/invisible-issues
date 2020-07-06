@@ -65,6 +65,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D');
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY() + 38, 75, 0xffff00);
       }
       if (tile.index === 37) {
         this.guards.create(
@@ -73,6 +74,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = 90;
+        this.lights.addLight(tile.getCenterX() - 38, tile.getCenterY(), 75, 0xffff00);
       }
       if (tile.index === 38) {
         this.guards.create(
@@ -81,6 +83,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = 180;
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY() - 38, 75, 0xffff00);
       }
       if (tile.index === 39) {
         this.guards.create(
@@ -89,6 +92,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = -90;
+        this.lights.addLight(tile.getCenterX() + 38, tile.getCenterY(), 75, 0xffff00);
       }
     });
     this.money = this.physics.add.group();
@@ -253,6 +257,7 @@ export default class LevelScene extends Phaser.Scene {
         )) {
           this.safex = this.agent.x;
           this.safey = this.agent.y;
+          this.safea = this.agent.angle;
         }
       },
     });
@@ -287,7 +292,10 @@ export default class LevelScene extends Phaser.Scene {
     if (this.wasted) {
       this.agent.x = this.safex;
       this.agent.y = this.safey;
+      this.agent.angle = this.safea;
+      console.log(this.safea);
       this.wasted = false;
+      this.cameras.main.startFollow(this.agent);
     }
     this.agent.setVelocity(0);
     if (!this.invisible && this.map.getTileAtWorldXY(
