@@ -55,10 +55,11 @@ export default class LoadScene extends Phaser.Scene {
         duration: 300,
       });
     });
-    this.load.atlas('sprites', 'image/sprites.png', 'image/sprites.json');
+    this.load.atlas('sprites', ['image/sprites.png', 'image/sprites_n.png'], 'image/sprites.json');
     this.load.image('bg', 'image/bg.png');
+    this.load.image('lightball', ['image/sprites/lightball.png', 'image/sprites/lightball_n.png']);
     this.load.tilemapTiledJSON('map', 'data/map.json');
-    this.load.image('tileset', 'image/tileset.png');
+    this.load.image('tileset', ['image/tileset.png', 'image/tileset_n.png']);
     this.load.json('levels', 'data/levels.json');
     this.load.audio('menu', 'audio/PM_AR_125_Fm_E.mp3');
     this.load.audio('level', 'audio/173_Robotics_Lab.mp3');

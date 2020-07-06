@@ -29,12 +29,17 @@ export default class LevelScene extends Phaser.Scene {
     this.scene.run('MoneyScene');
     this.scene.run('PauseScene', data);
     this.scene.pause();
+    this.lights.enable().setAmbientColor(0x000066);
     this.map = this.make.tilemap({
       key: 'map',
     });
     const tileset = this.map.addTilesetImage('tileset', 'tileset');
-    const terrain = this.map.createStaticLayer('terrain', tileset, 0, 0);
-    const props = this.map.createStaticLayer('props', tileset, 0, 0);
+    const terrain = this.map.createDynamicLayer('terrain', tileset, 0, 0);
+    terrain.setPipeline('Light2D');
+    const props = this.map.createDynamicLayer('props', tileset, 0, 0);
+    props.setPipeline('Light2D');
+    const lights = this.map.createDynamicLayer('lights', tileset, 0, 0);
+    lights.setPipeline('Light2D');
     terrain.setCollisionBetween(6, 18);
     terrain.setCollisionBetween(21, 32);
     terrain.forEachTile((tile) => {
@@ -44,7 +49,7 @@ export default class LevelScene extends Phaser.Scene {
             tile.getCenterY(),
             'sprites',
             'agent',
-        );
+        ).setPipeline('Light2D');
       }
     });
     this.agent.body.setCircle(24, 24, 24);
@@ -59,7 +64,7 @@ export default class LevelScene extends Phaser.Scene {
             tile.getCenterY(),
             'sprites',
             'guard',
-        );
+        ).setPipeline('Light2D');
       }
       if (tile.index === 37) {
         this.guards.create(
@@ -67,7 +72,7 @@ export default class LevelScene extends Phaser.Scene {
             tile.getCenterY(),
             'sprites',
             'guard',
-        ).angle = 90;
+        ).setPipeline('Light2D').angle = 90;
       }
       if (tile.index === 38) {
         this.guards.create(
@@ -75,7 +80,7 @@ export default class LevelScene extends Phaser.Scene {
             tile.getCenterY(),
             'sprites',
             'guard',
-        ).angle = 180;
+        ).setPipeline('Light2D').angle = 180;
       }
       if (tile.index === 39) {
         this.guards.create(
@@ -83,7 +88,7 @@ export default class LevelScene extends Phaser.Scene {
             tile.getCenterY(),
             'sprites',
             'guard',
-        ).angle = -90;
+        ).setPipeline('Light2D').angle = -90;
       }
     });
     this.money = this.physics.add.group();
@@ -105,6 +110,7 @@ export default class LevelScene extends Phaser.Scene {
           yoyo: true,
           repeat: -1,
         });
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY(), 200, 0x8888ff);
       }
       if (tile.index === 53) {
         this.gold = this.physics.add.image(
@@ -121,6 +127,16 @@ export default class LevelScene extends Phaser.Scene {
           yoyo: true,
           repeat: -1,
         });
+      }
+    });
+    this.flickers = [];
+    lights.forEachTile((tile) => {
+      if (tile.index === 50) {
+        tile.visible = false;
+        const light = this.lights.addLight(tile.getCenterX(), tile.getCenterY(), 400, 0x888888);
+        if (Math.random() < 0.1) {
+          this.flickers.push(light);
+        }
       }
     });
     this.physics.add.collider(this.agent, terrain);
@@ -335,6 +351,11 @@ export default class LevelScene extends Phaser.Scene {
       this.steps.volume = 0;
     }
     this.agent.body.velocity.normalize().scale(this.agent.speed);
+    this.flickers.forEach((light) => {
+      if (Math.random() < 0.03) {
+        light.intensity = !light.intensity;
+      }
+    });
   }
 
   /**

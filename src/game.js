@@ -13,6 +13,7 @@ import MoneyScene from './moneyScene.js';
 new Phaser.Game({
   type: Phaser.AUTO,
   backgroundColor: '#000',
+  maxLights: 20,
   physics: {
     default: 'arcade',
     arcade: {
