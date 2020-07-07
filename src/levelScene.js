@@ -319,7 +319,7 @@ export default class LevelScene extends Phaser.Scene {
       this.cameras.main.startFollow(this.agent);
     }
     this.agent.setVelocity(0);
-    if (!this.invisible && this.map.getTileAtWorldXY(
+    if (!this.invisible && !Profile.invincible && this.map.getTileAtWorldXY(
         this.agent.x,
         this.agent.y,
         false,
@@ -350,6 +350,7 @@ export default class LevelScene extends Phaser.Scene {
     );
     if (!this.invisible && exittile.index === 40 &&
       Profile.money >= 150000000) {
+      this.steps.stop();
       this.scene.stop();
       this.scene.stop('MoneyScene');
       this.scene.stop('PauseScene');

@@ -43,14 +43,7 @@ export default class WinScene extends Phaser.Scene {
     });
     this.input.keyboard.on('keydown', (event) => {
       event.preventDefault();
-      if (event.key === '0') {
-        this.add.text(8, 568, 'gode mode on', {
-          fontSize: '16px',
-          fontFamily: 'font',
-        }).setOrigin(0, 1);
-        Profile.progress = 15;
-        Profile.invincible = true;
-      } else {
+      if (event.key === 'Enter') {
         this.cameras.main.fadeOut(300);
       }
     });
