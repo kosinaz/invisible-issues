@@ -44,16 +44,36 @@ export default class LevelScene extends Phaser.Scene {
     terrain.setCollisionBetween(21, 32);
     terrain.forEachTile((tile) => {
       if (tile.index === 40) {
-        this.agent = this.physics.add.image(
+        this.agent = this.physics.add.sprite(
             tile.getCenterX(),
             tile.getCenterY(),
             'sprites',
-            'agent',
+            'agent3',
         ).setPipeline('Light2D');
       }
     });
     this.agent.body.setCircle(24, 24, 24);
     this.agent.speed = 200;
+    this.anims.create({
+      key: 'stand',
+      frames: [{key: 'sprites', frame: 'agent3'}],
+      frameRate: 10,
+    });
+    this.anims.create({
+      key: 'walk',
+      frames: [
+        {key: 'sprites', frame: 'agent3'},
+        {key: 'sprites', frame: 'agent2'},
+        {key: 'sprites', frame: 'agent1'},
+        {key: 'sprites', frame: 'agent2'},
+        {key: 'sprites', frame: 'agent3'},
+        {key: 'sprites', frame: 'agent4'},
+        {key: 'sprites', frame: 'agent5'},
+        {key: 'sprites', frame: 'agent4'},
+      ],
+      frameRate: 10,
+      repeat: -1,
+    });
     this.safex = this.agent.x;
     this.safey = this.agent.y;
     this.guards = this.physics.add.group();
@@ -65,7 +85,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D');
-        this.lights.addLight(tile.getCenterX(), tile.getCenterY() + 38, 75, 0xffff00);
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY() + 38, 75, 0x8888ff);
       }
       if (tile.index === 37) {
         this.guards.create(
@@ -74,7 +94,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = 90;
-        this.lights.addLight(tile.getCenterX() - 38, tile.getCenterY(), 75, 0xffff00);
+        this.lights.addLight(tile.getCenterX() - 38, tile.getCenterY(), 75, 0x8888ff);
       }
       if (tile.index === 38) {
         this.guards.create(
@@ -83,7 +103,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = 180;
-        this.lights.addLight(tile.getCenterX(), tile.getCenterY() - 38, 75, 0xffff00);
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY() - 38, 75, 0x8888ff);
       }
       if (tile.index === 39) {
         this.guards.create(
@@ -92,7 +112,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'guard',
         ).setPipeline('Light2D').angle = -90;
-        this.lights.addLight(tile.getCenterX() + 38, tile.getCenterY(), 75, 0xffff00);
+        this.lights.addLight(tile.getCenterX() + 38, tile.getCenterY(), 75, 0x8888ff);
       }
     });
     this.money = this.physics.add.group();
@@ -123,6 +143,7 @@ export default class LevelScene extends Phaser.Scene {
             'sprites',
             'goldmoney',
         );
+        this.lights.addLight(tile.getCenterX(), tile.getCenterY(), 200, 0x8888ff);
         this.tweens.add({
           targets: this.gold,
           scaleX: -1,
@@ -228,7 +249,7 @@ export default class LevelScene extends Phaser.Scene {
     });
     this.cameras.main.startFollow(this.agent);
     this.keys =
-      this.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ENTER');
+      this.input.keyboard.addKeys('W,A,S,D,UP,LEFT,DOWN,RIGHT,SPACE,ENTER,O,P');
     this.input.keyboard.on('keydown', (event) => {
       event.preventDefault();
     });
@@ -332,24 +353,50 @@ export default class LevelScene extends Phaser.Scene {
       this.scene.start('WinScene');
     }
     if (this.keys.W.isDown) {
+      this.agent.anims.play('walk', true);
       this.agent.setVelocityY(-this.agent.speed);
-      this.agent.angle = 180;
+      if (this.keys.A.isDown) {
+        this.agent.angle = 135;
+        this.agent.setVelocityX(-this.agent.speed);
+      } else if (this.keys.D.isDown) {
+        this.agent.angle = -135;
+        this.agent.setVelocityX(this.agent.speed);
+      } else {
+        this.agent.angle = 180;
+      }
       this.cameras.main.startFollow(this.agent);
-    }
-    if (this.keys.A.isDown) {
+    } else if (this.keys.S.isDown) {
+      this.agent.anims.play('walk', true);
+      this.agent.setVelocityY(this.agent.speed);
+      if (this.keys.A.isDown) {
+        this.agent.angle = 45;
+        this.agent.setVelocityX(-this.agent.speed);
+      } else if (this.keys.D.isDown) {
+        this.agent.angle = -45;
+        this.agent.setVelocityX(this.agent.speed);
+      } else {
+        this.agent.angle = 0;
+      }
+      this.cameras.main.startFollow(this.agent);
+    } else if (this.keys.A.isDown) {
+      this.agent.anims.play('walk', true);
       this.agent.setVelocityX(-this.agent.speed);
       this.agent.angle = 90;
       this.cameras.main.startFollow(this.agent);
-    }
-    if (this.keys.S.isDown) {
-      this.agent.setVelocityY(this.agent.speed);
-      this.agent.angle = 0;
-      this.cameras.main.startFollow(this.agent);
-    }
-    if (this.keys.D.isDown) {
+    } else if (this.keys.D.isDown) {
+      this.agent.anims.play('walk', true);
       this.agent.setVelocityX(this.agent.speed);
       this.agent.angle = -90;
       this.cameras.main.startFollow(this.agent);
+    }
+    if (!this.keys.W.isDown && !this.keys.A.isDown && !this.keys.S.isDown && !this.keys.D.isDown) {
+      this.agent.anims.play('stand');
+    }
+    if (this.keys.O.isDown) {
+      Profile.money = 150000000;
+    }
+    if (this.keys.P.isDown) {
+      Profile.money = 400000000;
     }
     if (this.agent.body.blocked.none && (
       this.agent.body.velocity.x || this.agent.body.velocity.y)

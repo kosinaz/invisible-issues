@@ -57,7 +57,6 @@ export default class LoadScene extends Phaser.Scene {
     });
     this.load.atlas('sprites', ['image/sprites.png', 'image/sprites_n.png'], 'image/sprites.json');
     this.load.image('bg', 'image/bg.png');
-    this.load.image('lightball', ['image/sprites/lightball.png', 'image/sprites/lightball_n.png']);
     this.load.tilemapTiledJSON('map', 'data/map.json');
     this.load.image('tileset', ['image/tileset.png', 'image/tileset_n.png']);
     this.load.json('levels', 'data/levels.json');
