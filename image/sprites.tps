@@ -181,7 +181,11 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">sprites/agent.png</key>
+            <key type="filename">sprites/agent1.png</key>
+            <key type="filename">sprites/agent2.png</key>
+            <key type="filename">sprites/agent3.png</key>
+            <key type="filename">sprites/agent4.png</key>
+            <key type="filename">sprites/agent5.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
