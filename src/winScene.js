@@ -35,8 +35,7 @@ export default class WinScene extends Phaser.Scene {
     if (Profile.money === 400000000) {
       text.text += '\n\nFLAWLESS\nPERFORMANCE!';
     }
-    this.scene.run('InfoScene');
-    this.scene.run('MusicScene');
+    this.scene.get('MusicScene').play(2);
     const play = new Button(this, 512, 528, 'sprites', 'playon');
     play.once('click', () => {
       play.disableInteractive();

@@ -24,6 +24,7 @@ export default class MenuScene extends Phaser.Scene {
    * @memberof MenuScene
    */
   create(data) {
+    Profile.money = 0;
     const bg = this.add.image(512, 288, 'bg');
     bg.setDisplaySize(1024, 576);
     this.scene.get('MusicScene').play(0);

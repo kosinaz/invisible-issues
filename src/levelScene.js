@@ -350,6 +350,9 @@ export default class LevelScene extends Phaser.Scene {
     );
     if (!this.invisible && exittile.index === 40 &&
       Profile.money >= 150000000) {
+      this.scene.stop();
+      this.scene.stop('MoneyScene');
+      this.scene.stop('PauseScene');
       this.scene.start('WinScene');
     }
     if (this.keys.W.isDown) {
